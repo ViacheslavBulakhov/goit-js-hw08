@@ -7,39 +7,34 @@ const refs = {
 const { form, textarea, inputMail } = refs;
 
 form.addEventListener('submit', onFormSubmit);
-inputMail.addEventListener('input', throttle(onMailInput, 500));
-textarea.addEventListener('input', throttle(onTextareaInput, 500));
+form.addEventListener('input', throttle(onInput, 500));
 
 const STORAGE_KEY = 'feedback-form-state';
-const formData = {};
-const savedText = JSON.parse(localStorage.getItem(STORAGE_KEY));
+let formData = {};
+
+let savedText = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
 function onFormSubmit (e) {
     e.preventDefault();
 
-    console.log(savedText);
-
+    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
+    
     e.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
 }
 
-function onMailInput(e) {
-    formData[e.target.name] = e.target.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-}
+function onInput(e) {
 
-function onTextareaInput(e) {
-    formData[e.target.name] = e.target.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+        formData[e.target.name] = e.target.value;
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 function writeTextForm() {
+
     if (savedText) {
         textarea.value = savedText.message;
         inputMail.value = savedText.email;
     }
 }
 writeTextForm()
-
-
-
