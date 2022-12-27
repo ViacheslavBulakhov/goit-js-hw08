@@ -10,10 +10,10 @@ form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onInput, 500));
 
 const STORAGE_KEY = 'feedback-form-state';
-let formData = {};
+
 
 let savedText = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
+let formData = {...savedText};
 function onFormSubmit (e) {
     e.preventDefault();
 
@@ -24,7 +24,7 @@ function onFormSubmit (e) {
 }
 
 function onInput(e) {
-
+        
         formData[e.target.name] = e.target.value;
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
