@@ -25,4 +25,4 @@ boxRef.insertAdjacentHTML('afterbegin',createElementList(galleryItems)) ;
     gallery.on('show.simplelightbox', function () {
     gallery.options.captionDelay = 250;
     });
-let a;
+let b;
